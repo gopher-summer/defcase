@@ -70,13 +70,14 @@ func (n *PkgNode) SetCase(tag, pkgPath string, c Case) {
 		panic("PkgNode struct pointer is nil")
 	}
 
+	currNode := n.GetOrSetSubNode(tag)
+
 	if pkgPath == "" || pkgPath == "*" {
-		n.Case = c
+		currNode.Case = c
 		return
 	}
 
 	names := SplitTagPath(tag, pkgPath)
-	currNode := n
 
 	for _, name := range names {
 		currNode = currNode.GetOrSetSubNode(name)
