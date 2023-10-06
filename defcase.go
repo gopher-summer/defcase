@@ -4,8 +4,6 @@ import (
 	"github.com/gopher-summer/defcase/internal"
 )
 
-type defCaseFn func(pkgPath, name string) string
-
 var tagNode *internal.PkgNode = internal.NewPkgNode()
 
 func DefCase(tag, pkgPath string, c Case) {
@@ -18,7 +16,7 @@ func ToDefCase(tag, pkgPath, name string) string {
 	return Convert(name, c)
 }
 
-func DefCaseFn(tag string) defCaseFn {
+func DefCaseFn(tag string) func(pkgPath, name string) string {
 	pkgNode := tagNode.GetOrSetSubNode(tag)
 
 	return func(pkgPath, name string) string {
